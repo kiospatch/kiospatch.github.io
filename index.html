@@ -3,336 +3,909 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIOSPATCH | Digital Game Store PS3 & PS4</title>
+    <title>KIOSPATCH | Digital Game Store</title>
     <style>
         :root {
-            --bg-dark: #050505;
-            --bg-card: #101012;
-            --bg-card-hover: #1c1c1e;
+            --bg-main: #060b14;
+            --bg-card: #111827;
+            --bg-card-hover: #1f2937;
             --primary-cyan: #38bdf8;
             --primary-blue: #0284c7;
-            --text-light: #ebdcc8;
-            --text-muted: #918879;
-            --shopee-orange: #ee4d2d;
+            --accent-blue: #2563eb;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --shopee: #ee4d2d;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            line-height: 1.6;
+            background-color: var(--bg-main);
+            color: var(--text-main);
         }
 
-        /* Header */
+        /* Header / Navbar */
         header {
-            background-color: rgba(16, 16, 18, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 15px 5%;
-            position: sticky;
+            background-color: rgba(6, 11, 20, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 20px 5%;
+            position: fixed;
+            width: 100%;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #2a2a2c;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .logo {
-            border: 2px solid var(--primary-cyan);
-            color: var(--primary-cyan);
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-style: italic;
-            font-weight: 900;
-            font-size: 20px;
-            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             text-decoration: none;
+            color: var(--text-main);
+            font-weight: 800;
+            font-size: 24px;
+            font-style: italic;
+        }
+        
+        .logo span {
+            color: var(--primary-cyan);
         }
 
-        .header-links a {
-            color: var(--text-light);
+        .nav-btn {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 8px;
             text-decoration: none;
-            margin-left: 20px;
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 600;
             transition: 0.3s;
         }
 
-        .header-links a:hover {
-            color: var(--primary-cyan);
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.2);
         }
 
         /* Hero Section */
         .hero {
+            margin-top: 80px;
+            padding: 60px 5% 40px;
+            background: radial-gradient(circle at center, rgba(2, 132, 199, 0.15) 0%, var(--bg-main) 70%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            padding: 80px 20px;
-            background: linear-gradient(180deg, #0284c7 0%, #050505 100%);
-            border-bottom: 1px solid #2a2a2c;
         }
 
         .hero h1 {
-            font-size: 40px;
+            font-size: 42px;
+            font-weight: 800;
             margin-bottom: 15px;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+            background: linear-gradient(to right, #fff, var(--primary-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero p {
-            color: #e2e8f0;
-            font-size: 18px;
+            color: var(--text-muted);
+            font-size: 16px;
             max-width: 600px;
-            margin: 0 auto 30px auto;
+            margin-bottom: 30px;
         }
 
-        .hero-badges {
+        .search-bar {
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 16px 20px 16px 45px;
+            border-radius: 99px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--bg-card);
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .search-bar input:focus {
+            border-color: var(--primary-cyan);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+
+        /* Promo Banner */
+        .promo-banner {
+            max-width: 1000px;
+            margin: 0 auto 40px;
+            background: linear-gradient(135deg, #1e3a8a, #0f172a);
+            border: 1px solid #3b82f6;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 90%;
+        }
+
+        .promo-text h2 {
+            color: #fff;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .promo-text p {
+            color: #bfdbfe;
+            font-size: 14px;
+        }
+
+        .promo-btn {
+            background: #eab308;
+            color: #000;
+            padding: 10px 24px;
+            border-radius: 99px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .promo-btn:hover {
+            background: #facc15;
+            transform: scale(1.05);
+        }
+
+        /* Categories */
+        .categories {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
+            margin-bottom: 30px;
             flex-wrap: wrap;
+            padding: 0 5%;
         }
 
-        .badge {
-            background-color: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--primary-cyan);
-            color: var(--primary-cyan);
+        .cat-btn {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-muted);
             padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: bold;
+            border-radius: 99px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s;
         }
 
-        /* Product Grid */
+        .cat-btn:hover, .cat-btn.active {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-cyan);
+        }
+
+        /* Grid */
         .container {
             max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            font-size: 24px;
-            border-left: 4px solid var(--primary-cyan);
-            padding-left: 15px;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin: 0 auto 60px;
+            padding: 0 5%;
         }
 
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
+            gap: 20px;
         }
 
         .card {
-            background-color: var(--bg-card);
-            border: 1px solid #2a2a2c;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: 0.3s;
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
+            transition: 0.3s;
         }
 
         .card:hover {
+            background: var(--bg-card-hover);
             transform: translateY(-5px);
-            background-color: var(--bg-card-hover);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            border-color: var(--primary-blue);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        .card-img {
-            height: 160px;
-            background-color: #222;
+        .card-header {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #555;
-            font-weight: bold;
-            font-size: 20px;
-            border-bottom: 1px solid #2a2a2c;
-            position: relative;
-        }
-
-        .season-tag {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #eab308;
-            color: #000;
-            font-size: 11px;
-            font-weight: bold;
-            padding: 3px 10px;
-            border-radius: 20px;
-        }
-
-        .card-content {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-title {
-            font-size: 18px;
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
-
-        .card-desc {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
-        .btn-buy {
-            display: block;
-            text-align: center;
-            background-color: var(--shopee-orange);
-            color: #fff;
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
-        .btn-buy:hover {
-            background-color: #d03e23;
-        }
-
-        .btn-download {
-            display: block;
-            text-align: center;
-            background-color: var(--primary-blue);
-            color: #fff;
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 14px;
-            transition: 0.3s;
-            margin-top: 10px;
-        }
-
-        .btn-download:hover {
-            background-color: var(--primary-cyan);
-            color: #000;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--bg-card);
-            border-top: 1px solid #2a2a2c;
-            padding: 40px 20px;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        footer p {
-            color: var(--text-muted);
-            font-size: 13px;
+            gap: 8px;
             margin-bottom: 15px;
         }
 
-        .footer-links a {
+        .badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .badge.sub-indo { background: rgba(16, 185, 129, 0.1); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .badge.ps4 { background: rgba(56, 189, 248, 0.1); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.2); }
+        .badge.mod { background: rgba(245, 158, 11, 0.1); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.2); }
+
+        .card-body {
+            flex-grow: 1;
+        }
+
+        .game-title {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .card-footer {
+            margin-top: auto;
+        }
+
+        .btn-shopee {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--primary-cyan);
             color: var(--primary-cyan);
+            padding: 10px;
+            border-radius: 8px;
             text-decoration: none;
-            margin: 0 10px;
             font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-shopee:hover {
+            background: var(--primary-cyan);
+            color: #000;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-muted);
+            font-size: 13px;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="#" class="logo">KIOSPATCH</a>
-        <div class="header-links">
-            <a href="https://shopee.co.id/kiospatach" target="_blank">Shopee</a>
-            <a href="https://lynk.id/kiospatch" target="_blank">Katalog Lynk.id</a>
-        </div>
+        <a href="#" class="logo">KIOS<span>PATCH</span></a>
+        <a href="https://ps3.kiospatch.workers.dev/?admin=kiospatch" class="nav-btn" target="_blank">Katalog Lengkap</a>
     </header>
 
     <section class="hero">
-        <h1>Gudang Game Digital PS3 & PS4</h1>
-        <p>Akses langsung ke ribuan database game PKG & HEN. Pengiriman instan murni digital, tanpa repot fisik, langsung masuk ke konsol Anda.</p>
-        <div class="hero-badges">
-            <span class="badge">⚡ Instant Delivery</span>
-            <span class="badge">❌ Non-Fisik (No HDD/Flasdisk)</span>
-            <span class="badge">❄️ Update Musim Winter</span>
+        <h1>Selamat Datang di Kiospatch</h1>
+        <p>Pusat Game Digital PS3 & PS4. Pengiriman instan murni digital via link. Kami tidak menjual barang fisik (Flashdisk/Hardisk/Aksesoris).</p>
+        
+        <div class="search-bar">
+            <!-- Search icon SVG -->
+            <svg style="position: absolute; left: 15px; top: 16px; color: #9ca3af;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="searchInput" placeholder="Cari game favoritmu di sini...">
         </div>
     </section>
 
-    <div class="container">
-        <h2 class="section-title">🔥 Patch & Update Tersorot</h2>
-        <div class="grid">
-            <!-- Card 1 -->
-            <div class="card">
-                <div class="card-img" style="background: linear-gradient(45deg, #16a34a, #065f46);">
-                    <div class="season-tag">WINTER SEASON</div>
-                    eFootball PES 2026
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">eFootball PES 2026 (Winter Update)</h3>
-                    <p class="card-desc">Patch terbaru musim dingin. Sub Indo eksklusif, transfer pemain terupdate hingga September 2026. Siap main di PS4.</p>
-                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-buy">🛒 Beli via Shopee</a>
-                </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="card">
-                <div class="card-img" style="background: linear-gradient(45deg, #ea580c, #9a3412);">
-                    Paket GEMBOX
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Gembox Patch PS3 & PS4</h3>
-                    <p class="card-desc">Paket modifikasi lengkap Gembox untuk pengalaman bermain maksimal. File digital utuh, instalasi mudah.</p>
-                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-buy">🛒 Beli via Shopee</a>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="card">
-                <div class="card-img" style="background: linear-gradient(45deg, #2563eb, #1e3a8a);">
-                    Paket BITBOX
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Bitbox Patch & VR Patch</h3>
-                    <p class="card-desc">Tingkatkan performa library game Anda dengan konfigurasi Bitbox. Mendukung integrasi VR Patch terbaru.</p>
-                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-buy">🛒 Beli via Shopee</a>
-                </div>
-            </div>
+    <div class="promo-banner">
+        <div class="promo-text">
+            <h2>🔥 eFootball PES 2026 Winter Season</h2>
+            <p>Update transfer pemain terbaru musim dingin. Sub Indo + Lengkap dengan modifikasi.</p>
         </div>
+        <a href="https://shopee.co.id/kiospatach" class="promo-btn" target="_blank">Pesan Sekarang</a>
+    </div>
 
-        <h2 class="section-title">🎮 Dasbor Pencarian Otomatis</h2>
-        <div class="grid">
-             <!-- Card 4 -->
-             <div class="card" style="border-color: var(--primary-cyan);">
-                <div class="card-content" style="text-align: center; padding: 40px 20px;">
-                    <h3 class="card-title" style="color: var(--primary-cyan); font-size: 22px;">Akses Database 2.700+ Game</h3>
-                    <p class="card-desc">Cari game incaran Anda secara mandiri melalui dasbor pencarian khusus Kiospatch.</p>
-                    <a href="https://ps3.kiospatch.workers.dev/?admin=kiospatch" target="_blank" class="btn-download">🔍 Buka Katalog Internal</a>
+    <div class="categories">
+        <button class="cat-btn active" onclick="filterGames('all')">Semua</button>
+        <button class="cat-btn" onclick="filterGames('sub-indo')">Sub Indo</button>
+        <button class="cat-btn" onclick="filterGames('mod')">Mod Menu</button>
+    </div>
+
+    <div class="container">
+        <div class="grid" id="gameGrid">
+            
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">It Takes Two</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">A Way Out</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Resident Evil 5</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">GTA San Andreas DE</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">God of War - Ragnarok</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Ghost of Tsushima</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Uncharted The Nathan Drake Collection</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Spongebob Battle Rehydrated</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Sleeping Dogs DE</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Man Of Medan</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">The Witcher 3</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Kamen Rider</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Resident Evil 4</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">GTA Vice City DE</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Green Hell</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">The Last of Us Part II</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Resident Evil 2 Remake</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Resident Evil 3 Remake</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="mod">
+                <div class="card-header">
+                    <span class="badge mod">MOD</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">GTA V MOD Sub Indo</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">The Last Of Us Remastered</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Sekiro</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Days Gone</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Elden Ring</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Persona 3 Reload</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">A Plague Tale Innocence</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Mortal Kombat 11 Ultimate</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Hogwarts Legacy</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Uncharted 4 - A Thief's End</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Stray</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Assassin's Creed Odyssey</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Assassin's Creed Origins</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Devil May Cry 5</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Mod Menu Red Dead Redemption 2</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Assassin's Creed The Ezio Collection</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Fatal Frame Mask of the Lunar Eclipse</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
+                </div>
+            </div>
+            <div class="card game-item" data-category="sub-indo">
+                <div class="card-header">
+                    <span class="badge sub-indo">SUB INDO</span>
+                    <span class="badge ps4">PS4</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="game-title">Tomb Raider I-III Remastered</h3>
+                </div>
+                <div class="card-footer">
+                    <a href="https://shopee.co.id/kiospatach" target="_blank" class="btn-shopee">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        Beli via Shopee
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>Operasional murni pengiriman digital. Kami tidak melayani pembelian produk fisik seperti flashdisk, hardisk, kabel, maupun aksesoris lainnya.</p>
-        <div class="footer-links">
-            <a href="https://shopee.co.id/kiospatach" target="_blank">kiospatach @ Shopee</a>
-            <a href="https://wa.me/6281234567890" target="_blank">Chat Asisten WhatsApp</a>
-        </div>
-        <p style="margin-top: 20px; font-size: 11px;">© 2026 KIOSPATCH Digital. All Rights Reserved.</p>
+        <p>Operasional Kiospatch murni pengiriman file digital. Kami tidak melayani penjualan hardware.</p>
+        <p>© 2026 Kiospatch Digital Store. All rights reserved.</p>
     </footer>
 
+    <script>
+        // Simple search functionality
+        document.getElementById('searchInput').addEventListener('keyup', function(e) {
+            let term = e.target.value.toLowerCase();
+            let games = document.querySelectorAll('.game-item');
+            
+            games.forEach(game => {
+                let title = game.querySelector('.game-title').innerText.toLowerCase();
+                if(title.includes(term)) {
+                    game.style.display = 'flex';
+                } else {
+                    game.style.display = 'none';
+                }
+            });
+        });
+
+        // Simple category filter
+        function filterGames(cat) {
+            // Update active button
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            let games = document.querySelectorAll('.game-item');
+            games.forEach(game => {
+                if(cat === 'all') {
+                    game.style.display = 'flex';
+                } else {
+                    if(game.getAttribute('data-category') === cat) {
+                        game.style.display = 'flex';
+                    } else {
+                        game.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
 </body>
 </html>
