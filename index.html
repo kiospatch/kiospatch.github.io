@@ -234,10 +234,70 @@
             transform: scale(1.05);
         }
 
-    </style>
+    
+        /* --- PROMO TOAST NOTIFICATION --- */
+        .promo-toast {
+            position: fixed;
+            top: 85px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-200%);
+            width: 90%;
+            max-width: 750px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(2, 44, 34, 0.95));
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--green);
+            border-radius: 12px;
+            z-index: 1050;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8), 0 0 20px rgba(57, 255, 20, 0.2);
+            animation: slideDownToast 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 1.5s;
+        }
+        @keyframes slideDownToast {
+            to { transform: translateX(-50%) translateY(0); }
+        }
+        .promo-toast.hidden { display: none; }
+        .toast-content { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; flex-grow: 1; }
+        .toast-badge { background: var(--promo-gold); color: #000; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 900; letter-spacing: 1px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); } 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); } }
+        .toast-text { font-size: 13.5px; color: #fff; margin: 0; line-height: 1.5; }
+        .toast-text b { color: var(--cyan); font-weight: 900; }
+        .toast-text span { color: var(--green); font-weight: 700; }
+        .btn-claim { background: var(--primary-gradient); color: #000; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 900; text-decoration: none; transition: 0.3s; white-space: nowrap; box-shadow: 0 4px 15px rgba(57, 255, 20, 0.3); }
+        .btn-claim:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 240, 255, 0.5); }
+        .toast-close { background: rgba(255,255,255,0.1); border: none; color: #fff; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; margin-left: 10px; font-size: 16px; }
+        .toast-close:hover { background: #ef4444; transform: rotate(90deg); }
+        @media (max-width: 768px) {
+            .promo-toast { top: 75px; flex-direction: column; text-align: center; padding: 20px 15px; }
+            .toast-content { justify-content: center; flex-direction: column; gap: 10px; }
+            .toast-close { position: absolute; top: 10px; right: 10px; }
+        }
+    
+
+        .checkout-form { margin: 15px 0; display: flex; flex-direction: column; gap: 10px; text-align: left; }
+        .checkout-form label { font-size: 12px; color: var(--text-muted); font-weight: 700; margin-bottom: -5px; margin-left: 5px; }
+        .checkout-form input { width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(0, 240, 255, 0.3); background: rgba(15, 23, 42, 0.8); color: white; font-size: 14px; outline: none; transition: 0.3s; }
+        .checkout-form input:focus { border-color: var(--green); box-shadow: 0 0 10px rgba(57, 255, 20, 0.2); }
+
+</style>
 
 </head>
 <body>
+
+    <!-- PROMO TOAST NOTIFICATION -->
+    <div class="promo-toast" id="promoToast">
+        <div class="toast-content">
+            <span class="toast-badge">🔥 WINTER PROMO</span>
+            <p class="toast-text">
+                Spesial Musim Winter! Dapatkan <b>FREE CLAIM</b> 1 Game ringan tiap beli paket hemat. <span>Garansi Anti Gagal & Dibimbing Sampai Bisa!</span>
+            </p>
+            <a href="https://wa.me/6282324569185?text=Halo%20Admin%20Kiospatch,%20saya%20tertarik%20dengan%20Promo%20Winter%20Free%20Claim!" target="_blank" class="btn-claim">Klaim Sekarang</a>
+        </div>
+        <button class="toast-close" onclick="closePromoToast()">✕</button>
+    </div>
+
 
     <!-- NAVBAR -->
     <header>
@@ -377,6 +437,21 @@
         <div class="modal-content">
             <button class="modal-close" onclick="closeQRISModal()">✕</button>
             <h2 style="margin-bottom: 5px; font-size:22px; font-weight:900; color:#fff;">Pembayaran</h2>
+
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Lengkapi data untuk pengiriman game.</p>
+            <div class="checkout-form">
+                <label>Nama Lengkap *</label>
+                <input type="text" id="custName" placeholder="Contoh: Budi Santoso" required>
+                
+                <label>Email Pengiriman *</label>
+                <input type="email" id="custEmail" placeholder="Contoh: budi@gmail.com" required>
+                
+                <label>Kode Referral (Opsional)</label>
+                <input type="text" id="custRef" placeholder="Masukkan kode jika ada">
+            </div>
+            
+            <div style="width:100%; height:1px; background:rgba(255,255,255,0.05); margin: 15px 0;"></div>
+
             
             <div class="qris-box">
                 <img src="https://raw.githubusercontent.com/kiospatch/qris/main/QRIS%20KIOSPATCH.jpg" alt="QRIS Kiospatch">
@@ -597,15 +672,35 @@
         }
 
         function checkoutToWhatsApp() {
+            const name = document.getElementById('custName').value.trim();
+            const email = document.getElementById('custEmail').value.trim();
+            const ref = document.getElementById('custRef').value.trim();
+
+            if(!name || !email) {
+                alert("Mohon lengkapi Nama dan Email Anda terlebih dahulu untuk memudahkan pengiriman game.");
+                return;
+            }
+
+            // Generate Random Order ID
+            const orderId = 'NXP-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+
             let list = '';
             cart.forEach((item, i) => { list += `${i+1}. ${item.title}%0A`; });
             
-            let msg = `Halo Admin Kiospatch, saya mau order Game Digital:%0A%0A${list}%0A*Total Bayar: ${formatRupiah(finalTotalPrice)}*%0A%0ASaya sudah transfer. Ini bukti transfernya.%0A%0A*Alamat Email Saya:* [Tulis Email Anda di sini]`;
+            let refText = ref ? `%0A*Kode Referral:* ${ref}` : '';
+            
+            let msg = `Halo Admin *KIOSPATCH*, berikut pesanan saya:%0A%0A*📦 ORDER ID:* ${orderId}%0A*👤 Nama:* ${name}%0A*📧 Email:* ${email}${refText}%0A%0A*🎮 Daftar Game:*%0A${list}%0A*💰 Total Tagihan:* ${formatRupiah(finalTotalPrice)}%0A%0A_Saya akan mengirimkan bukti transfer setelah pesan ini._`;
+            
             window.open(`https://wa.me/${no_wa_admin}?text=${msg}`, '_blank');
             closeQRISModal();
         }
 
         document.addEventListener("DOMContentLoaded", () => { renderGrid(1); });
+    
+        function closePromoToast() {
+            document.getElementById('promoToast').classList.add('hidden');
+        }
+
     </script>
 </body>
 </html>
